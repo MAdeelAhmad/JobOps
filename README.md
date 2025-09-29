@@ -13,17 +13,6 @@ A Django REST Framework-based system for managing internal operations, jobs, tas
 - **Analytics Dashboard**: Admin-only job statistics and reports
 - **API Documentation**: Auto-generated Swagger/ReDoc documentation
 
-## Tech Stack
-
-- **Backend**: Django 4.2, Django REST Framework
-- **Database**: PostgreSQL 15
-- **Message Broker**: RabbitMQ 3.12
-- **Task Queue**: Celery with Django Celery Beat
-- **Cache**: Redis 7
-- **Authentication**: JWT (SimpleJWT)
-- **Email Testing**: MailHog
-- **Containerization**: Docker & Docker Compose
-
 ## Quick Start
 
 ### Prerequisites
@@ -103,69 +92,6 @@ docker-compose exec web python manage.py createsuperuser
 ### Run tests
 ```bash
 docker-compose exec web python manage.py test
-```
-
-## Project Structure
-
-```
-jobops/
-├── docker-compose.yml              # Docker services configuration
-├── Dockerfile                      # Docker image definition
-├── requirements.txt                # Python dependencies
-├── .env                            # Environment variables (git-ignored)
-├── .gitignore                      # Git ignore rules
-├── .dockerignore                   # Docker ignore rules
-├── entrypoint.sh                   # Docker entrypoint script
-├── manage.py                       # Django management script
-├── README.md                       # Main project documentation
-├── DOCKER_README.md                # Docker-specific documentation
-├── DESIGN_DECISIONS.md             # Architecture & design decisions
-│
-├── jobops/                         # Django project configuration
-│   ├── __init__.py                # Makes it a Python package + Celery app init
-│   ├── settings.py                # Project settings
-│   ├── urls.py                    # Main URL configuration
-│   ├── wsgi.py                    # WSGI configuration for deployment
-│   ├── asgi.py                    # ASGI configuration (async support)
-│   └── celery.py                  # Celery configuration
-│
-├── users/                          # User management app
-│   ├── __init__.py
-│   ├── apps.py                    # App configuration
-│   ├── models.py                  # User model (extends AbstractUser)
-│   ├── serializers.py             # User serializers (Create, Update, Read)
-│   ├── views.py                   # User ViewSets
-│   ├── permissions.py             # User-related permissions (CanManageUsers)
-│   ├── urls.py                    # User endpoints
-│   ├── admin.py                   # User admin configuration
-│   ├── managers.py                # Custom user manager (optional)
-│   ├── migrations/                # Database migrations
-│   │   └── __init__.py
-│   └── tests/                     # User tests
-│       ├── __init__.py
-│       ├── test_models.py         # User model tests
-│       ├── test_views.py          # User API tests
-│       ├── test_serializers.py    # User serializer tests
-│
-└── ops/                            # Operations management app (UPDATED)
-    ├── __init__.py
-    ├── apps.py                    # App configuration
-    ├── models.py                  # Equipment, Job, JobTask, JobChangeLog models
-    ├── serializers.py             # Equipment, Job, Task serializers
-    ├── views.py                   # Equipment, Job, Task ViewSets + Dashboard
-    ├── permissions.py             # Job/Equipment permissions
-    ├── urls.py                    # Operations endpoints
-    ├── tasks.py                   # Celery tasks (overdue jobs, reminders)
-    ├── admin.py                   # Operations admin configuration
-    ├── utils.py                   # Utility functions (email helpers)
-    ├── migrations/                # Database migrations
-    │   └── __init__.py
-    └── tests/                     # Operations tests
-        ├── __init__.py
-        ├── test_models.py         # Equipment, Job, Task model tests
-        ├── test_views.py          # API endpoint tests
-        ├── test_serializers.py    # Serializer tests
-        ├── test_permissions.py    # Permission tests
 ```
 
 ## Celery Scheduled Tasks
